@@ -7,7 +7,7 @@
                 <bean id="OleInvoice_POLookup" parent="Uif-InputField" p:propertyName="poId" p:label="Purchase Order  " >
                     <property name="quickfinder">
                         <bean parent="Uif-QuickFinder" p:dataObjectClassName="org.kuali.ole.select.document.OLEInvoicePurchaseOrderSearch"
-                              p:fieldConversions="vendorNumber:vendorNumber,purapDocumentIdentifier:poId" p:lookupParameters="vendorHeaderGeneratedIdentifier:vendorHeaderGeneratedIdentifier,vendorDetailAssignedIdentifier:vendorDetailAssignedIdentifier,vendorName:vendorName"/>
+                              p:fieldConversions="vendorNumber:vendorNumber,purapDocumentIdentifier:poId" p:lookupParameters="vendorId:vendorName,poId:purapDocumentIdentifier"/>
                     </property>
                     <property name="control">
                         <bean parent="Uif-TextControl" p:size="10" p:maxLength="10"/>

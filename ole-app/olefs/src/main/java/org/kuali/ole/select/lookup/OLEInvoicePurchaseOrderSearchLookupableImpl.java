@@ -42,7 +42,7 @@ public class OLEInvoicePurchaseOrderSearchLookupableImpl extends LookupableImpl 
     private String poId;
     private String title;
     private String author;
-    private String vendorName;
+    private String vendorNumber;
     private String isbn;
     private String documentNumber;
     private String searchResultPoId;
@@ -91,9 +91,9 @@ public class OLEInvoicePurchaseOrderSearchLookupableImpl extends LookupableImpl 
             title = searchCriteria.get(org.kuali.ole.OLEConstants.TITLE) != null ? searchCriteria.get(org.kuali.ole.OLEConstants.TITLE) : "";
             author = searchCriteria.get(org.kuali.ole.OLEConstants.AUTHOR) != null ? searchCriteria.get(org.kuali.ole.OLEConstants.AUTHOR) : "";
             isbn = searchCriteria.get(org.kuali.ole.OLEConstants.ISBN) != null ? searchCriteria.get(org.kuali.ole.OLEConstants.ISBN) : "";
-            vendorName = searchCriteria.get(org.kuali.ole.OLEConstants.VENDOR_NAME) != null ? searchCriteria.get(org.kuali.ole.OLEConstants.VENDOR_NAME) : "";
+            vendorNumber = searchCriteria.get(org.kuali.ole.OLEConstants.VENDOR_NAME) != null ? searchCriteria.get(org.kuali.ole.OLEConstants.VENDOR_NAME) : "";
             documentNumber = searchCriteria.get(org.kuali.ole.OLEConstants.DOC_NUM) != null ? searchCriteria.get(org.kuali.ole.OLEConstants.DOC_NUM) : "";
-            searchUsingSearchCriteria(finalInvoicePurchaseOrderList, vendorName, documentNumber, poId, title, author, isbn);
+            searchUsingSearchCriteria(finalInvoicePurchaseOrderList, vendorNumber, documentNumber, poId, title, author, isbn);
             if (GlobalVariables.getMessageMap().getWarningCount() > 0) {
                 GlobalVariables.getMessageMap().getWarningMessages().clear();
             }
@@ -144,14 +144,14 @@ public class OLEInvoicePurchaseOrderSearchLookupableImpl extends LookupableImpl 
         return isValid;
     }
 
-    public void searchUsingSearchCriteria(List<OLEInvoicePurchaseOrderSearch> finalInvoicePurchaseOrderList, String vendorName, String documentNumber, String poId, String title, String author, String isbn) {
+    public void searchUsingSearchCriteria(List<OLEInvoicePurchaseOrderSearch> finalInvoicePurchaseOrderList, String vendorNumber, String documentNumber, String poId, String title, String author, String isbn) {
         DocumentSearchCriteria.Builder docSearchCriteria = DocumentSearchCriteria.Builder.create();
         docSearchCriteria.setDocumentTypeName(PurapConstants.PurapDocTypeCodes.PO_DOCUMENT);
         Map<String, List<String>> fixedParameters = new HashMap<>();
         if (!poId.isEmpty())
             fixedParameters.put(org.kuali.ole.OLEConstants.PURAP_DOC_IDENTIFIER, Arrays.asList(poId));
-        if (!vendorName.isEmpty())
-            fixedParameters.put(org.kuali.ole.OLEConstants.VENDOR_NAME, Arrays.asList(vendorName));
+        if (!vendorNumber.isEmpty())
+            fixedParameters.put(org.kuali.ole.OLEConstants.OLEBatchProcess.VENDOR_NUMBER, Arrays.asList(vendorNumber));
         Map<String, List<String>> attributes = new HashMap<String, List<String>>();
         if (docSearchCriteria != null) {
             if (!fixedParameters.isEmpty()) {

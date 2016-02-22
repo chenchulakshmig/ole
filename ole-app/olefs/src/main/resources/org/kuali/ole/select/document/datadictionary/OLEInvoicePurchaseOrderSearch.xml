@@ -221,11 +221,11 @@
         <property name="forceUppercase" value="false"/>
         <property name="shortLabel" value="vendorName"/>
         <property name="maxLength" value="30"/>
-        <property name="control">
-            <bean  id="TextControlDefinition_vendorName" parent="TextControlDefinition" p:size="30"/>
+        <property name="optionsFinder">
+            <bean class="org.kuali.ole.select.businessobject.options.OLEInvoiceVendorTypeFinder" />
         </property>
         <property name="controlField">
-            <bean id="Uif-TextControl_vendorName" parent="Uif-TextControl" p:size="30"/>
+            <bean parent="Uif-DropdownControl"/>
         </property>
         <property name="name" value="vendorName"/>
         <property name="label" value="vendorName"/>
@@ -305,8 +305,7 @@
         <property name="viewHelperServiceClass" value="org.kuali.ole.select.lookup.OLEInvoicePurchaseOrderSearchLookupableImpl"/>
         <property name="criteriaFields">
             <list>
-                <bean id="search_vendorHeaderGeneratedIdentifier" parent="Uif-LookupCriteriaInputField" p:propertyName="vendorHeaderGeneratedIdentifier" p:hidden="true"/>
-                <bean id="search_vendorName" parent="Uif-LookupCriteriaInputField" p:propertyName="vendorName" p:label="Vendor Name" p:readOnly="true"/>
+                <bean id="search_vendorName" parent="Uif-LookupCriteriaInputField" p:propertyName="vendorName" p:label="Vendor Name"/>
                 <bean id="search_documentNumber" parent="Uif-LookupCriteriaInputField" p:propertyName="documentNumber" />
                 <bean id="search_purapDocumentIdentifier" parent="Uif-LookupCriteriaInputField" p:propertyName="purapDocumentIdentifier" p:label="Purchase Order Number"/>
                 <!--<bean id="search_vendorNumber" parent="Uif-LookupCriteriaInputField" p:propertyName="vendorNumber" p:label="Vendor ID" />-->
@@ -315,7 +314,6 @@
                 <bean id="search_isbn" parent="Uif-LookupCriteriaInputField" p:propertyName="isbn" p:label="ISBN" />
                 <bean id="search_poDateFrom" parent="Uif-LookupCriteriaInputField" p:propertyName="poDateFrom" p:label="PO Date From"/>
                 <bean id="search_poDateTo" parent="Uif-LookupCriteriaInputField" p:propertyName="poDateTo" p:label="PO Date To"/>
-                <bean id="search_vendorDetailAssignedIdentifier" parent="Uif-LookupCriteriaInputField" p:propertyName="vendorDetailAssignedIdentifier" p:hidden="true"/>
                 </list>
         </property>
         <property name="resultFields">
