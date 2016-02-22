@@ -35,6 +35,8 @@
                 <ref bean="OLEInvoicePurchaseOrderSearch-author"/>
                 <ref bean="OLEInvoicePurchaseOrderSearch-isbn"/>
                 <ref bean="OLEInvoicePurchaseOrderSearch-vendorName"/>
+                <ref bean="OLEInvoicePurchaseOrderSearch-poDateFrom"/>
+                <ref bean="OLEInvoicePurchaseOrderSearch-poDateTo"/>
                 <!--<ref bean="OLEInvoicePurchaseOrderSearch-publisher"/>
                 <ref bean="OLEInstanceSearch-instanceId"/>
                 <ref bean="OLEInstanceSearch-bibId"/>
@@ -230,6 +232,32 @@
         <property name="description" value="vendorName"/>
     </bean>
 
+    <bean id="OLEInvoicePurchaseOrderSearch-poDateFrom" parent="OLEInvoicePurchaseOrderSearch-poDateFrom-parentBean"/>
+    <bean id="OLEInvoicePurchaseOrderSearch-poDateFrom-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="forceUppercase" value="false"/>
+        <property name="shortLabel" value="PO Date From"/>
+        <property name="maxLength" value="10"/>
+        <property name="controlField">
+            <bean parent="Uif-DateControl" p:size="10"/>
+        </property>
+        <property name="name" value="poDateFrom"/>
+        <property name="label" value="PO Date From"/>
+        <property name="description" value="PO Date From"/>
+    </bean>
+
+    <bean id="OLEInvoicePurchaseOrderSearch-poDateTo" parent="OLEInvoicePurchaseOrderSearch-poDateTo-parentBean"/>
+    <bean id="OLEInvoicePurchaseOrderSearch-poDateTo-parentBean" abstract="true" parent="AttributeDefinition">
+        <property name="forceUppercase" value="false"/>
+        <property name="shortLabel" value="PO Date To"/>
+        <property name="maxLength" value="10"/>
+        <property name="controlField">
+            <bean parent="Uif-DateControl" p:size="10"/>
+        </property>
+        <property name="name" value="poDateTo"/>
+        <property name="label" value="PO Date To"/>
+        <property name="description" value="PO Date To"/>
+    </bean>
+
     <!--<bean id="OLEInstanceSearch-bibId" parent="OLEInstanceSearch-bibId-parentBean"/>
 
     <bean id="OLEInstanceSearch-bibId-parentBean" abstract="true" parent="AttributeDefinition">
@@ -285,6 +313,8 @@
                 <bean id="search_title" parent="Uif-LookupCriteriaInputField" p:propertyName="title" p:label="Title" />
                 <bean id="search_author" parent="Uif-LookupCriteriaInputField" p:propertyName="author" p:label="Author" />
                 <bean id="search_isbn" parent="Uif-LookupCriteriaInputField" p:propertyName="isbn" p:label="ISBN" />
+                <bean id="search_poDateFrom" parent="Uif-LookupCriteriaInputField" p:propertyName="poDateFrom" p:label="PO Date From"/>
+                <bean id="search_poDateTo" parent="Uif-LookupCriteriaInputField" p:propertyName="poDateTo" p:label="PO Date To"/>
                 <bean id="search_vendorDetailAssignedIdentifier" parent="Uif-LookupCriteriaInputField" p:propertyName="vendorDetailAssignedIdentifier" p:hidden="true"/>
                 </list>
         </property>
