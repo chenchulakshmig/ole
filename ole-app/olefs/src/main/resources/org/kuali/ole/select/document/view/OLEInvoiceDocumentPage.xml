@@ -22,7 +22,7 @@
     </bean>
 
     <bean id="OleInvoiceView-POItems" parent="Uif-Disclosure-GridSection" p:layoutManager.numberOfColumns="1" p:layoutManager.applyDefaultCellWidths="false"  p:style="width:auto">
-        <property name="headerText" value="Process Titles"/>
+        <property name="headerText" value="Purchase Orders eligible to add"/>
         <property name="items">
             <list>
                 <bean  id="OLEInvoiceView-processItems-purchaseOrderDocuments"  parent="Uif-TableCollectionSection"  p:layoutManager.numberOfColumns="10"
@@ -163,7 +163,7 @@
 		p:fieldBindingObjectPath="purchaseOrderDocuments" p:renderLineActions="false" p:RenderInactiveToggleButton="false"
  		p:renderAddLine="false">
 		<property name="propertyName" value="items" />
-		<property name="header.headerText" value="Current Items" />
+		<property name="header.headerText" value="Line items eligible to add" />
 		<property name="collectionObjectClass"
 			value="org.kuali.ole.select.businessobject.OlePurchaseOrderItem" />
 		<property name="layoutManager">
@@ -316,7 +316,7 @@
 		</property>
 		<property name="header">
 			<bean parent="Uif-SubCollectionHeader">
-				<property name="headerText" value="Current Items" />
+				<property name="headerText" value="Line items added to invoice" />
 				<property name="lowerGroup">
 					<bean parent="Uif-InactiveItemsActionsGroup" />
 				</property>
