@@ -10,7 +10,7 @@
                               p:fieldConversions="vendorNumber:vendorNumber,purapDocumentIdentifier:poId" p:lookupParameters="vendorId:vendorName,poId:purapDocumentIdentifier"/>
                     </property>
                     <property name="control">
-                        <bean parent="Uif-TextControl" p:size="10" p:maxLength="10"/>
+                        <bean parent="Uif-TextControl" p:size="50" p:maxLength="100"/>
                     </property>
                 </bean>
                 <bean id="addProcessItem-button" parent="Uif-SecondaryActionButton-Small" p:methodToCall="addProcessItem"
