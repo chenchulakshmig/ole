@@ -73,7 +73,7 @@ public interface OleInvoiceService extends InvoiceService {
 
     public boolean autoApprovePaymentRequest(OleInvoiceDocument doc);
 
-    public OleInvoiceDocument populateInvoiceItems (OleInvoiceDocument invoiceDocument, OlePurchaseOrderDocument olePurchaseOrderDocument);
+    public OleInvoiceDocument populateInvoiceItems (OleInvoiceDocument invoiceDocument, List<OlePurchaseOrderDocument> olePurchaseOrderDocumentList);
 
     public OleInvoiceDocument populateInvoiceDocument (OleInvoiceDocument invoiceDocument);
 

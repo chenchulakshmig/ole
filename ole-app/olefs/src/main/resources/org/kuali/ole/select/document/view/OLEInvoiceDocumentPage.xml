@@ -13,8 +13,13 @@
                         <bean parent="Uif-TextControl" p:size="50" p:maxLength="100"/>
                     </property>
                 </bean>
+                <bean id="OleInvoice_addImmediately" parent="Uif-InputField" p:propertyName="addImmediately" p:label="Add Immediately">
+                    <property name="control">
+                        <bean parent="Uif-CheckboxControl"/>
+                    </property>
+                </bean>
                 <bean id="addProcessItem-button" parent="Uif-SecondaryActionButton-Small" p:methodToCall="addProcessItem"
-                	p:actionLabel="add"  p:hidden="true" p:refreshId="OleInvoiceView-POItems" p:successCallback="removeDollarSymbolsForProcessItem()" />
+                	p:actionLabel="add"  p:hidden="true" p:refreshId="OLEInvoiceView-processItems-Wrapper" p:successCallback="removeDollarSymbolsForProcessItem()" />
                 	<!--  p:ajaxSubmit="true"
                 	p:successCallback="toggleCollapseAllSections()"/ -->
             </list>

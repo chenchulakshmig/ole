@@ -1879,7 +1879,7 @@ public class OleInvoiceServiceImpl extends InvoiceServiceImpl implements OleInvo
         return invoiceDocument;
     }
 
-    public OleInvoiceDocument populateInvoiceItems (OleInvoiceDocument invoiceDocument, OlePurchaseOrderDocument olePurchaseOrderDocument) {
+    public OleInvoiceDocument populateInvoiceItems (OleInvoiceDocument invoiceDocument, List<OlePurchaseOrderDocument> olePurchaseOrderDocumentList) {
         //int invoiceItemNumberCnt = getLastItemLineNumber(invoiceDocument);
 
         LOG.debug("Inside populateInvoiceItems method ");
@@ -1887,47 +1887,48 @@ public class OleInvoiceServiceImpl extends InvoiceServiceImpl implements OleInvo
         Boolean receiveRequired = false;
         HashMap<String, ExpiredOrClosedAccountEntry> expiredOrClosedAccountList = new HashMap<>();
         BigDecimal addChargeItem = BigDecimal.ZERO;
-        if (olePurchaseOrderDocument.isReceivingDocumentRequiredIndicator()) {
-            receiveRequired = true;
-        }
+        for (OlePurchaseOrderDocument olePurchaseOrderDocument : olePurchaseOrderDocumentList){
+            if (olePurchaseOrderDocument.isReceivingDocumentRequiredIndicator()) {
+                receiveRequired = true;
+            }
             /* if(this.encumberedItemExistsForInvoicing(po))
             {*/
-        for (OlePurchaseOrderItem poi : (List<OlePurchaseOrderItem>) olePurchaseOrderDocument.getItems()) {
-            // check to make sure it's eligible for payment (i.e. active and has encumbrance available
-            //if (this.poItemEligibleForAp(invoiceDocument, poi)) {
-            if (poi.isItemForInvoice()) {
-                OleInvoiceItem invoiceItem = new OleInvoiceItem(poi, invoiceDocument, expiredOrClosedAccountList);
-                // invoiceItem.setItemLineNumber(++invoiceItemNumberCnt);
-                invoiceItem.setClosePurchaseOrderIndicator(olePurchaseOrderDocument.isClosePO());
-                invoiceItem.setReopenPurchaseOrderIndicator(olePurchaseOrderDocument.getIsReOpenPO());
-                PurchasingCapitalAssetItem purchasingCAMSItem = olePurchaseOrderDocument.getPurchasingCapitalAssetItemByItemIdentifier(poi.getItemIdentifier());
-                if (purchasingCAMSItem != null) {
-                    invoiceItem.setCapitalAssetTransactionTypeCode(purchasingCAMSItem.getCapitalAssetTransactionTypeCode());
-                }
-                invoiceItem.setUseTaxIndicator(olePurchaseOrderDocument.isUseTaxIndicator());
-                invoiceItem.setPurchaseOrderIdentifier(olePurchaseOrderDocument.getPurapDocumentIdentifier());
-                invoiceItem.setPostingYear(olePurchaseOrderDocument.getPostingYear());
-                invoiceItem.setAccountsPayablePurchasingDocumentLinkIdentifier(olePurchaseOrderDocument.getAccountsPayablePurchasingDocumentLinkIdentifier());
-                invoiceItem.setReceivingDocumentRequiredIndicator(olePurchaseOrderDocument.isReceivingDocumentRequiredIndicator());
-                if (invoiceItem.getItemType().isAdditionalChargeIndicator() && invoiceItem.getExtendedPrice() != null) {
-                    addChargeItem = addChargeItem.add(invoiceItem.getExtendedPrice().bigDecimalValue());
-                }
-                // copy usetaxitems over
-                invoiceItem.getUseTaxItems().clear();
-                for (PurApItemUseTax useTax : poi.getUseTaxItems()) {
-                    invoiceItem.getUseTaxItems().add(useTax);
-                }
-                invoiceItem.setPurchaseOrderEndDate(olePurchaseOrderDocument.getPoEndDate());
-                //SpringContext.getBean(PurapAccountingService.class).updateItemAccountAmounts(invoiceItem);
-                //   this.calculateAccount(invoiceItem);
-                invoiceDocument.getItems().add(invoiceItem);
-                if (LOG.isDebugEnabled()) {
-                    LOG.debug("Size**********************" + invoiceDocument.getItems().size());
+            for (OlePurchaseOrderItem poi : (List<OlePurchaseOrderItem>) olePurchaseOrderDocument.getItems()) {
+                // check to make sure it's eligible for payment (i.e. active and has encumbrance available
+                //if (this.poItemEligibleForAp(invoiceDocument, poi)) {
+                if (poi.isItemForInvoice()) {
+                    OleInvoiceItem invoiceItem = new OleInvoiceItem(poi, invoiceDocument, expiredOrClosedAccountList);
+                    // invoiceItem.setItemLineNumber(++invoiceItemNumberCnt);
+                    invoiceItem.setClosePurchaseOrderIndicator(olePurchaseOrderDocument.isClosePO());
+                    invoiceItem.setReopenPurchaseOrderIndicator(olePurchaseOrderDocument.getIsReOpenPO());
+                    PurchasingCapitalAssetItem purchasingCAMSItem = olePurchaseOrderDocument.getPurchasingCapitalAssetItemByItemIdentifier(poi.getItemIdentifier());
+                    if (purchasingCAMSItem != null) {
+                        invoiceItem.setCapitalAssetTransactionTypeCode(purchasingCAMSItem.getCapitalAssetTransactionTypeCode());
+                    }
+                    invoiceItem.setUseTaxIndicator(olePurchaseOrderDocument.isUseTaxIndicator());
+                    invoiceItem.setPurchaseOrderIdentifier(olePurchaseOrderDocument.getPurapDocumentIdentifier());
+                    invoiceItem.setPostingYear(olePurchaseOrderDocument.getPostingYear());
+                    invoiceItem.setAccountsPayablePurchasingDocumentLinkIdentifier(olePurchaseOrderDocument.getAccountsPayablePurchasingDocumentLinkIdentifier());
+                    invoiceItem.setReceivingDocumentRequiredIndicator(olePurchaseOrderDocument.isReceivingDocumentRequiredIndicator());
+                    if (invoiceItem.getItemType().isAdditionalChargeIndicator() && invoiceItem.getExtendedPrice() != null) {
+                        addChargeItem = addChargeItem.add(invoiceItem.getExtendedPrice().bigDecimalValue());
+                    }
+                    // copy usetaxitems over
+                    invoiceItem.getUseTaxItems().clear();
+                    for (PurApItemUseTax useTax : poi.getUseTaxItems()) {
+                        invoiceItem.getUseTaxItems().add(useTax);
+                    }
+                    invoiceItem.setPurchaseOrderEndDate(olePurchaseOrderDocument.getPoEndDate());
+                    //SpringContext.getBean(PurapAccountingService.class).updateItemAccountAmounts(invoiceItem);
+                    //   this.calculateAccount(invoiceItem);
+                    invoiceDocument.getItems().add(invoiceItem);
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Size**********************" + invoiceDocument.getItems().size());
+                    }
                 }
             }
+            invoiceDocument.setTotalDollarAmount(invoiceDocument.getTotalDollarAmount().add(olePurchaseOrderDocument.getTotalDollarAmount()));
         }
-        invoiceDocument.setTotalDollarAmount(invoiceDocument.getTotalDollarAmount().add(olePurchaseOrderDocument.getTotalDollarAmount()));
-
         //  List<OleInvoiceItem> item = invoiceDocument.getItems();
        /* for(OleInvoiceItem invoiceditem : item){
             if(invoiceditem.getItemType().isAdditionalChargeIndicator() && invoiceditem.getExtendedPrice()!=null){
@@ -1940,7 +1941,7 @@ public class OleInvoiceServiceImpl extends InvoiceServiceImpl implements OleInvo
         }
         invoiceDocument.setDocumentTotalAmount(invoiceDocument.getInvoicedItemTotal());
         // invoiceDocument.setPurchaseOrderDocuments(new ArrayList<OlePurchaseOrderDocument>());
-        invoiceDocument.getPurchaseOrderDocuments().remove(olePurchaseOrderDocument);
+        invoiceDocument.getPurchaseOrderDocuments().removeAll(olePurchaseOrderDocumentList);
         invoiceDocument.setReceivingDocumentRequiredIndicator(receiveRequired);
         return invoiceDocument;
     }
@@ -2002,7 +2003,7 @@ public class OleInvoiceServiceImpl extends InvoiceServiceImpl implements OleInvo
         }
 
         if (poItemsSelected) {
-            oleInvoiceDocument = this.populateInvoiceItems(oleInvoiceDocument, olePurchaseOrderDocument);
+            oleInvoiceDocument = this.populateInvoiceItems(oleInvoiceDocument, Arrays.asList(olePurchaseOrderDocument));
             //   oleInvoiceDocument = this.populateInvoiceDocument(oleInvoiceDocument);
             /*SpringContext.getBean(PurapAccountingService.class).updateAccountAmounts(oleInvoiceDocument);*/
         } else {
