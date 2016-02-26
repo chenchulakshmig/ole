@@ -105,14 +105,18 @@ public class OLEInvoicePurchaseOrderSearchLookupableImpl extends LookupableImpl 
     }
 
     private boolean validatePoId() {
-        if (isNumber(poId.toString()) && !poId.contains("*")) {
-            return true;
-        } else {
-            GlobalVariables.getMessageMap().putWarning(KRADConstants.GLOBAL_ERRORS,
-                    OleSelectConstant.ERROR_NO_PO_WILD_CARD_SEARCH,
-                    new String[]{org.kuali.ole.OLEConstants.PURCHASE_ORDER_NUM});
-            return false;
+        if (StringUtils.isNotBlank(poId)) {
+            String[] poIds = poId.split(",");
+            for (String poId : poIds) {
+                if (!StringUtils.isNumeric(poId)) {
+                    GlobalVariables.getMessageMap().putError(KRADConstants.GLOBAL_ERRORS,
+                            OleSelectConstant.ERROR_PO_INVALID_FORMAT,
+                            new String[]{org.kuali.ole.OLEConstants.PURCHASE_ORDER_NUM});
+                    return false;
+                }
+            }
         }
+        return true;
     }
 
     private boolean validatePOFromAndToDates(String fromDate, String toDate) {
@@ -149,7 +153,7 @@ public class OLEInvoicePurchaseOrderSearchLookupableImpl extends LookupableImpl 
         docSearchCriteria.setDocumentTypeName(PurapConstants.PurapDocTypeCodes.PO_DOCUMENT);
         Map<String, List<String>> fixedParameters = new HashMap<>();
         if (!poId.isEmpty())
-            fixedParameters.put(org.kuali.ole.OLEConstants.PURAP_DOC_IDENTIFIER, Arrays.asList(poId));
+            fixedParameters.put(org.kuali.ole.OLEConstants.PURAP_DOC_IDENTIFIER, Arrays.asList(poId.split(",")));
         if (!vendorNumber.isEmpty())
             fixedParameters.put(org.kuali.ole.OLEConstants.OLEBatchProcess.VENDOR_NUMBER, Arrays.asList(vendorNumber));
         Map<String, List<String>> attributes = new HashMap<String, List<String>>();

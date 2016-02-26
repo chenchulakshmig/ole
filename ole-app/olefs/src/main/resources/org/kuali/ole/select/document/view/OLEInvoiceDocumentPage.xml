@@ -10,7 +10,7 @@
                               p:fieldConversions="vendorNumber:vendorNumber,purapDocumentIdentifier:poId" p:lookupParameters="vendorId:vendorName,poId:purapDocumentIdentifier"/>
                     </property>
                     <property name="control">
-                        <bean parent="Uif-TextControl" p:size="50" p:maxLength="100"/>
+                        <bean parent="Uif-TextControl" p:size="50"/>
                     </property>
                 </bean>
                 <bean id="OleInvoice_addImmediately" parent="Uif-InputField" p:propertyName="addImmediately" p:label="Add Immediately">
