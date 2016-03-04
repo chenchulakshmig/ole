@@ -675,6 +675,9 @@ public class OLEConstants {
         public static final String DESTINATION_FIELD_COVERAGE_END_VOLUME = "Coverage End Volume";
         public static final String DESTINATION_FIELD_STATISTICAL_CODE = "Statistical Code";
         public static final String DESTINATION_FIELD_ACCESS_STATUS_CODE = "Access Status";
+        public static final String DESTINATION_FIELD_MATIRIAL_SPECIFIED = "Materials Specified";
+        public static final String DESTINATION_FIELD_FIRST_INDICATOR = "Firist Indicator";
+        public static final String DESTINATION_FIELD_SECOND_INICATOR = "Second Indicator";
         public static final String DESTINATION_FIELD_PLATFORM = "Platform";
         public static final String DESTINATION_FIELD_ERESOURCE_NAME = "EResource Name";
         public static final String DESTINATION_FIELD_ERESOURCE_ID = "EResource Id";
@@ -1144,6 +1147,8 @@ public class OLEConstants {
         public static final String OLE_PATRON_BILL_DELETE = "Delete";
         public static final String FILE_NAME = "fileName";
         public static final String OLE_PTRN_BILL_MAIN_DOC_SER = "olePatronBillMaintenanceDocumentService";
+        public static final String NOT_ELIGIBLE_FOR_CREDIT = "error.not.eligible.for.credit";
+        public static final String POSITIVE_VAL_NOT_ALLOWED = "error.positive.value.not.allowed";
         //patronMerge
         public static final String PATRON_MERGE_SURVIVOR_SELECT = "error.select.survivor";
         public static final String PATRON_MERGE_DUPLICATE_PATRON_SELECT = "error.select.dyingPatron";
@@ -1513,6 +1518,7 @@ public class OLEConstants {
         public static final String COPY = "copy";
         public static final String EDIT = "edit";
         public static final String OLE_INVALID_CIRCULATION_DESK_LOCATION = "error.valid.circulationDesk.invalid.location";
+        public static final String OLE_INVALID_FEE_TYPE = "error.valid.feeType";
         public static final String OLE_COPY_FORMAT_CODE = "code";
         public static final String OLE_COPY_FORMAT_CODE_ERROR = "error.copyformat.code";
         public static final String SOLR_MAX_PAGE_SIZE = "solr.max.page.size.for.update.item.status.job";
@@ -1959,6 +1965,7 @@ public class OLEConstants {
     public static final KualiDecimal KUALI_BIGDECIMAL_DEF_VALUE = new KualiDecimal(BIGDECIMAL_DEF_VALUE);
     public static final String PAID_AMT_EXC = "error.paid.amount.exceeds";
     public static final String PAY_AMT_EMPTY = "error.pay.amount.empty";
+    public static final String PAID_AMT_EMPTY = "error.paid.amount.empty";
     public static final String PAY_METHOD_REQUIRED = "error.pay.method.required";
     public static final String ITM_BAR_NOT_AVAL = "error.item.barcode.not.available";
     public static final String ENTR_ITM_BAR = "error.enter.item.barcode";
@@ -3768,4 +3775,29 @@ public class OLEConstants {
     public static final String NUMBER_OF_WORKING_HOURS = "numberOfWorkingHours";
     public static final String MAIN_REC_REC_TYP = "Main";
     public static final String MESSAGE_UNSAVED_CHANGES = "message.unsaved.changes";
+    public static final String NOT_ELIGIBLE_FOR_DEBIT = "error.not.eligible.transfer";
+    public static final String REQUIRED_TRANSFER_AMT = "transfer.amt.required";
+    public static final String REFUND_NOT_APPLICABLE = "error.refund.not.applicable";
+    public static final String REFUND_AMT_NOT_APPLICABLE = "error.refund.amt.not.applicable";
+    public static final String CANCEL_NOT_APPLICABLE = "error.not.eligible.cancel";
+    public static final String REFUND_NOTICE = "Refund Notice";
+    public static final String DEBT_TRANS_NOTELIGIBLE = "debit.transfer.not.eligible";
+    public static final String PAY_FEE_PAR_TRANS = "PAY_FEE_PARTIALLY_TRANSFERED";
+    public static final String PAY_TRANSFERRED = "Transferred";
+    public static final String PAY_FULL_CRDT_ISSUED ="PAY_FULL_CRDT_ISSUED";
+    public static final String PAY_PAR_CRDT_ISSUED ="PAY_PAR_CRDT_ISSUED";
+    public static final String PAY_CRDT_FULLY_TRANSFERRED = "PAY_CRDT_FULLY_TRANSFERED";
+    public static final String PAY_CRDT_PAR_TRANSFERRED = "PAY_CRDT_PAR_TRANSFERED";
+    public static final String PAY_CRDT_FULLY_CANCELLED = "PAY_CRDT_FULLY_CANCELLED";
+    public static final String PAY_CRDT_PAR_CANCELLED = "PAY_CRDT_PAR_CANCELLED";
+    public static final String PAY_CRDT_CANCELLED = "Credit Cancelled";
+    public static final String PAY_FULLY_REFUNDED ="PAY_FULLY_REFUNDED";
+    public static final String PAY_PAR_REFUNDED ="PAY_PAR_REFUNDED";
+    public static final String PAY_REFUNDED_APPLIED ="Refund Applied";
+    public static final String PAY_FULLY_PAID_CRDT ="PAY_FULLY_PAID_CRDT";
+    public static final String PAY_PAR_PAID_CRDT ="PAY_FULLY_PAID_CRDT";
+    public static final String PAY_REFUNDED_ISSUED ="Refund Issued";
+    public static final String PAY_APPL_CRDT = "Applied Credit";
+    public static final String RECALL_DELIVERY_REQUEST="Recall/Delivery Request";
+    public static final String RECALL_HOLD_REQUEST="Recall/Hold Request";
 }
